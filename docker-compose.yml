@@ -1,0 +1,40 @@
+version: "3.6"
+
+services:
+  web:
+    image: node:18
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/frontend
+    working_dir: /frontend
+    command: "yarn dev"
+
+  app:
+    image: node:18
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend:/backend
+    working_dir: /backend
+    depends_on:
+      - db
+    command: "yarn start:dev"
+
+  db:
+    image: postgres:15
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=induction
+      - POSTGRES_PASSWORD=induction
+      - POSTGRES_DB=induction
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
