@@ -5,3 +5,13 @@
 type Query {
   getHello: String!
 }
+
+type Mutation {
+  signup(input: CreateAccountInput!): String!
+}
+
+input CreateAccountInput {
+  id: String!
+  name: String!
+  password: String!
+}
