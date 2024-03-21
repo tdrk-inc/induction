@@ -1,7 +1,9 @@
+import { Post } from "src/posts/domain/entities/post.entity";
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -32,4 +34,7 @@ export class Account {
     comment: "更新日",
   })
   updatedAt: Date;
+
+  @OneToMany(() => Post, (post) => post.account)
+  readonly posts: Post[];
 }

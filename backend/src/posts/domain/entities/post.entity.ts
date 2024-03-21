@@ -1,7 +1,10 @@
+import { Account } from "src/accounts/domain/entities/account.entity";
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -39,5 +42,15 @@ export class Post {
   updatedAt: Date;
 
   @Column({ type: "varchar", name: "account_id", comment: "アカウントID" })
-  accountId: string;
+  readonly accountId: string;
+
+  @ManyToOne(() => Account, (account) => account.posts, {
+    onDelete: "CASCADE",
+    eager: true,
+  })
+  @JoinColumn({
+    name: "account_id",
+    referencedColumnName: "id",
+  })
+  readonly account: Account;
 }
