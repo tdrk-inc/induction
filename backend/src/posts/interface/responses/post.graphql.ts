@@ -21,12 +21,16 @@ export class GraphQLPost {
   @Field()
   readonly accountId: string;
 
-  constructor(entity: Post) {
+  @Field(() => [GraphQLPost], { nullable: true })
+  readonly relatedPosts?: GraphQLPost[];
+
+  constructor(entity: Post, relatedPosts?: GraphQLPost[]) {
     this.id = entity.id;
     this.content = entity.content;
     this.basePostId = entity.basePostId;
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;
     this.accountId = entity.accountId;
+    this.relatedPosts = relatedPosts;
   }
 }

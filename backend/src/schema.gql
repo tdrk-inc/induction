@@ -9,6 +9,7 @@ type Post {
   createdAt: Timestamp!
   updatedAt: Timestamp!
   accountId: String!
+  relatedPosts: [Post!]
 }
 
 """
