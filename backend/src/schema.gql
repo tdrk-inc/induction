@@ -30,6 +30,7 @@ type Mutation {
   signup(input: SignupAccountInput!): String!
   createPost(input: CreatePostInput!): Post!
   updatePost(input: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
 }
 
 input SignupAccountInput {

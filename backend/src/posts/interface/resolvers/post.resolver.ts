@@ -1,4 +1,4 @@
-import { Args, Context, Mutation, Resolver } from "@nestjs/graphql";
+import { Args, Context, Int, Mutation, Resolver } from "@nestjs/graphql";
 import {
   AccountGuard,
   AccountGuardContext,
@@ -28,5 +28,13 @@ export class PostResolver {
     @Args({ name: "input", type: () => UpdatePostInput }) input: UpdatePostInput
   ): Promise<GraphQLPost> {
     return this.service.update(context.accountId, input);
+  }
+
+  @Mutation(() => GraphQLPost)
+  async removePost(
+    @Context() context: AccountGuardContext,
+    @Args({ name: "id", type: () => Int }) id: number
+  ): Promise<GraphQLPost> {
+    return this.service.remove(context.accountId, id);
   }
 }
