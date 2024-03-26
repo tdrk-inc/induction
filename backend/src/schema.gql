@@ -19,6 +19,7 @@ scalar Timestamp
 type Query {
   getHello: String!
   signin(input: SigninAccountInput!): String!
+  posts: [Post!]!
 }
 
 input SigninAccountInput {
