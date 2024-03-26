@@ -2,6 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Post {
+  id: Int!
+  content: String!
+  basePostId: Int
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  accountId: String!
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
 type Query {
   getHello: String!
   signin(input: SigninAccountInput!): String!
@@ -14,10 +28,16 @@ input SigninAccountInput {
 
 type Mutation {
   signup(input: SignupAccountInput!): String!
+  createPost(input: CreatePostInput!): Post!
 }
 
 input SignupAccountInput {
   id: String!
   name: String!
   password: String!
+}
+
+input CreatePostInput {
+  content: String!
+  basePostId: Int!
 }
