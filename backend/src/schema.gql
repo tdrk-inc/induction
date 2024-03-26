@@ -4,6 +4,12 @@
 
 type Query {
   getHello: String!
+  signin(input: SigninAccountInput!): String!
+}
+
+input SigninAccountInput {
+  id: String!
+  password: String!
 }
 
 type Mutation {
