@@ -29,6 +29,7 @@ input SigninAccountInput {
 type Mutation {
   signup(input: SignupAccountInput!): String!
   createPost(input: CreatePostInput!): Post!
+  updatePost(input: UpdatePostInput!): Post!
 }
 
 input SignupAccountInput {
@@ -40,4 +41,9 @@ input SignupAccountInput {
 input CreatePostInput {
   content: String!
   basePostId: Int
+}
+
+input UpdatePostInput {
+  id: Int!
+  content: String!
 }
