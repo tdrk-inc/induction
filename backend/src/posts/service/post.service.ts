@@ -41,4 +41,14 @@ export class PostService {
   async find(accountId: Account["id"]): Promise<Post[]> {
     return this.repository.findBy({ accountId, basePostId: IsNull() });
   }
+
+  async findOne(
+    accountId: Account["id"],
+    id: Post["id"]
+  ): Promise<[Post, Post[]]> {
+    const post = await this.repository.findOneBy({ id, accountId });
+    if (!post) throw new GraphQLError("Post not found.");
+    const relatedPosts = await this.repository.findBy({ basePostId: id });
+    return [post, relatedPosts];
+  }
 }
