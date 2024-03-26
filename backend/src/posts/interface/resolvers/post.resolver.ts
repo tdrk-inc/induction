@@ -43,4 +43,16 @@ export class PostResolver {
     const posts = await this.service.find(context.accountId);
     return posts.map((v) => new GraphQLPost(v));
   }
+
+  @Query(() => GraphQLPost, { name: "post" })
+  async findOne(
+    @Context() context: AccountGuardContext,
+    @Args({ name: "id", type: () => Int }) id: number
+  ): Promise<GraphQLPost> {
+    const [post, relatedPosts] = await this.service.findOne(
+      context.accountId,
+      id
+    );
+    return new GraphQLPost(post, relatedPosts);
+  }
 }

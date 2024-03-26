@@ -21,6 +21,7 @@ type Query {
   getHello: String!
   signin(input: SigninAccountInput!): String!
   posts: [Post!]!
+  post(id: Int!): Post!
 }
 
 input SigninAccountInput {
