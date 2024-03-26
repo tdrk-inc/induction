@@ -1,4 +1,5 @@
 import { Field, GraphQLTimestamp, Int, ObjectType } from "@nestjs/graphql";
+import { GraphQLAccount } from "src/accounts/interface/responses/account.graphql";
 import { Post } from "src/posts/domain/entities/post.entity";
 
 @ObjectType("Post")
@@ -21,6 +22,9 @@ export class GraphQLPost {
   @Field()
   readonly accountId: string;
 
+  @Field(() => GraphQLAccount)
+  readonly account: GraphQLAccount;
+
   @Field(() => [GraphQLPost], { nullable: true })
   readonly relatedPosts?: GraphQLPost[];
 
@@ -31,6 +35,7 @@ export class GraphQLPost {
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;
     this.accountId = entity.accountId;
+    this.account = new GraphQLAccount(entity.account);
     this.relatedPosts = relatedPosts;
   }
 }

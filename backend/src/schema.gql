@@ -2,6 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Account {
+  id: String!
+  name: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
 type Post {
   id: Int!
   content: String!
@@ -9,13 +21,9 @@ type Post {
   createdAt: Timestamp!
   updatedAt: Timestamp!
   accountId: String!
+  account: Account!
   relatedPosts: [Post!]
 }
-
-"""
-`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
-"""
-scalar Timestamp
 
 type Query {
   getHello: String!
