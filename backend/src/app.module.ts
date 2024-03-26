@@ -8,6 +8,7 @@ import { join } from "path";
 import { ConfigModule } from "@nestjs/config";
 import { DatabaseModule } from "./database/database.module";
 import { AccountModule } from "./accounts/account.module";
+import { PostModule } from "./posts/post.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AccountModule } from "./accounts/account.module";
     }),
     DatabaseModule,
     AccountModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppResolver, AppService],
