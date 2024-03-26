@@ -39,5 +39,5 @@ input SignupAccountInput {
 
 input CreatePostInput {
   content: String!
-  basePostId: Int!
+  basePostId: Int
 }

@@ -5,6 +5,6 @@ export class CreatePostInput {
   @Field()
   content: string;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   basePostId?: number;
 }
