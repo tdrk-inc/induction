@@ -29,4 +29,12 @@ export class PostService {
     if (!post) throw new GraphQLError("Post not found.");
     return this.repository.save(input);
   }
+
+  async remove(accountId: Account["id"], id: Post["id"]): Promise<Post> {
+    const post = await this.repository.findOneBy({ id, accountId });
+    if (!post) throw new GraphQLError("Post not found.");
+    const removedPost: Post = JSON.parse(JSON.stringify(post));
+    this.repository.remove(post);
+    return removedPost;
+  }
 }
