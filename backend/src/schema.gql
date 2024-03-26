@@ -2,13 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Post {
-  id: Int!
-  content: String!
-  basePostId: Int
+type Account {
+  id: String!
+  name: String!
   createdAt: Timestamp!
   updatedAt: Timestamp!
-  accountId: String!
 }
 
 """
@@ -16,9 +14,22 @@ type Post {
 """
 scalar Timestamp
 
+type Post {
+  id: Int!
+  content: String!
+  basePostId: Int
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  accountId: String!
+  account: Account!
+  relatedPosts: [Post!]
+}
+
 type Query {
   getHello: String!
   signin(input: SigninAccountInput!): String!
+  posts: [Post!]!
+  post(id: Int!): Post!
 }
 
 input SigninAccountInput {

@@ -1,4 +1,4 @@
-import { Args, Context, Int, Mutation, Resolver } from "@nestjs/graphql";
+import { Args, Context, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import {
   AccountGuard,
   AccountGuardContext,
@@ -36,5 +36,23 @@ export class PostResolver {
     @Args({ name: "id", type: () => Int }) id: number
   ): Promise<GraphQLPost> {
     return new GraphQLPost(await this.service.remove(context.accountId, id));
+  }
+
+  @Query(() => [GraphQLPost], { name: "posts" })
+  async find(@Context() context: AccountGuardContext): Promise<GraphQLPost[]> {
+    const posts = await this.service.find(context.accountId);
+    return posts.map((v) => new GraphQLPost(v));
+  }
+
+  @Query(() => GraphQLPost, { name: "post" })
+  async findOne(
+    @Context() context: AccountGuardContext,
+    @Args({ name: "id", type: () => Int }) id: number
+  ): Promise<GraphQLPost> {
+    const [post, relatedPosts] = await this.service.findOne(
+      context.accountId,
+      id
+    );
+    return new GraphQLPost(post, relatedPosts);
   }
 }
