@@ -4,6 +4,8 @@ import { Post } from "../domain/entities/post.entity";
 import { Repository } from "typeorm";
 import { Account } from "src/accounts/domain/entities/account.entity";
 import { CreatePostInput } from "../interface/requests/create-post.input";
+import { UpdatePostInput } from "../interface/requests/update-post.input";
+import { GraphQLError } from "graphql";
 
 @Injectable()
 export class PostService {
@@ -17,5 +19,14 @@ export class PostService {
     input: CreatePostInput
   ): Promise<Post> {
     return this.repository.save({ accountId, ...input });
+  }
+
+  async update(
+    accountId: Account["id"],
+    input: UpdatePostInput
+  ): Promise<Post> {
+    const post = this.repository.findOneBy({ id: input.id, accountId });
+    if (!post) throw new GraphQLError("Post not found.");
+    return this.repository.save(input);
   }
 }
