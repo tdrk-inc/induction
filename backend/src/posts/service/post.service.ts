@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Post } from "../domain/entities/post.entity";
-import { Repository } from "typeorm";
+import { IsNull, Repository } from "typeorm";
 import { Account } from "src/accounts/domain/entities/account.entity";
 import { CreatePostInput } from "../interface/requests/create-post.input";
 import { UpdatePostInput } from "../interface/requests/update-post.input";
@@ -36,5 +36,9 @@ export class PostService {
     const removedPost: Post = JSON.parse(JSON.stringify(post));
     this.repository.remove(post);
     return removedPost;
+  }
+
+  async find(accountId: Account["id"]): Promise<Post[]> {
+    return this.repository.findBy({ accountId, basePostId: IsNull() });
   }
 }
