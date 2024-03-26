@@ -4,13 +4,19 @@
 
 type Query {
   getHello: String!
+  signin(input: SigninAccountInput!): String!
+}
+
+input SigninAccountInput {
+  id: String!
+  password: String!
 }
 
 type Mutation {
-  signup(input: CreateAccountInput!): String!
+  signup(input: SignupAccountInput!): String!
 }
 
-input CreateAccountInput {
+input SignupAccountInput {
   id: String!
   name: String!
   password: String!
