@@ -19,7 +19,7 @@ export class PostResolver {
     @Context() context: AccountGuardContext,
     @Args({ name: "input", type: () => CreatePostInput }) input: CreatePostInput
   ): Promise<GraphQLPost> {
-    return this.service.create(context.accountId, input);
+    return new GraphQLPost(await this.service.create(context.accountId, input));
   }
 
   @Mutation(() => GraphQLPost)
@@ -27,7 +27,7 @@ export class PostResolver {
     @Context() context: AccountGuardContext,
     @Args({ name: "input", type: () => UpdatePostInput }) input: UpdatePostInput
   ): Promise<GraphQLPost> {
-    return this.service.update(context.accountId, input);
+    return new GraphQLPost(await this.service.update(context.accountId, input));
   }
 
   @Mutation(() => GraphQLPost)
@@ -35,6 +35,6 @@ export class PostResolver {
     @Context() context: AccountGuardContext,
     @Args({ name: "id", type: () => Int }) id: number
   ): Promise<GraphQLPost> {
-    return this.service.remove(context.accountId, id);
+    return new GraphQLPost(await this.service.remove(context.accountId, id));
   }
 }
