@@ -1,6 +1,7 @@
 import { useSigninLazyQuery } from "@/apollo/graphql";
 import { SigninForm } from "@/components/SigninForm";
 import { chakra, Box, Flex, useToast } from "@chakra-ui/react";
+import { setCookie } from "nookies";
 import { FormEvent } from "react";
 
 export default function Signin() {
@@ -8,7 +9,7 @@ export default function Signin() {
 
   const [signin] = useSigninLazyQuery({
     onCompleted: (data) => {
-      console.log(data);
+      setCookie(null, "token", data.signin);
     },
     onError: () => {
       toast({
