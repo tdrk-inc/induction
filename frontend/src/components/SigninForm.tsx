@@ -14,7 +14,7 @@ export function SigninForm() {
       <Heading as="h2">Mutter</Heading>
       <FormControl>
         <FormLabel>アカウントID</FormLabel>
-        <Input name="accountId" />
+        <Input name="account_id" />
       </FormControl>
       <FormControl>
         <FormLabel>パスワード</FormLabel>

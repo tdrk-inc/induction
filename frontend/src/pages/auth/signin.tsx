@@ -1,11 +1,34 @@
+import { useSigninLazyQuery } from "@/apollo/graphql";
 import { SigninForm } from "@/components/SigninForm";
-import { chakra, Box, Flex } from "@chakra-ui/react";
+import { chakra, Box, Flex, useToast } from "@chakra-ui/react";
 import { FormEvent } from "react";
 
 export default function Signin() {
+  const toast = useToast();
+
+  const [signin] = useSigninLazyQuery({
+    onCompleted: (data) => {
+      console.log(data);
+    },
+    onError: () => {
+      toast({
+        title: "サインインに失敗しました",
+        status: "error",
+        duration: 2000,
+      });
+    },
+  });
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e);
+    signin({
+      variables: {
+        input: {
+          id: e.currentTarget.account_id.value,
+          password: e.currentTarget.password.value,
+        },
+      },
+    });
   };
 
   return (
