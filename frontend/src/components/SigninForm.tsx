@@ -29,14 +29,7 @@ export function SigninForm() {
       >
         アカウント作成はこちら
       </Link>
-      <Button
-        color="white"
-        bgColor="black"
-        rounded={24}
-        w={64}
-        mt={6}
-        type="submit"
-      >
+      <Button variant="submit" type="submit">
         ログイン
       </Button>
     </Stack>

@@ -33,14 +33,7 @@ export function SignupForm() {
       >
         ログインはこちら
       </Link>
-      <Button
-        color="white"
-        bgColor="black"
-        rounded={24}
-        w={64}
-        mt={6}
-        type="submit"
-      >
+      <Button variant="submit" type="submit">
         登録
       </Button>
     </Stack>
