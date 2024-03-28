@@ -61,6 +61,9 @@ export default function Post() {
             </Text>
           </HStack>
           <Text whiteSpace="pre-wrap">{data?.post.content}</Text>
+          <Text color="blackAlpha.700" fontSize="small">
+            更新日時: {new Date(data?.post.updatedAt).toLocaleString()}
+          </Text>
         </Stack>
         <chakra.form onSubmit={onSubmit}>
           <PostForm />

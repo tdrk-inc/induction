@@ -26,6 +26,7 @@ export const GET_POST = gql`
     post(id: $id) {
       id
       content
+      updatedAt
       account {
         id
         name

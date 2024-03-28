@@ -162,7 +162,7 @@ export type GetPostQuery = (
   { __typename?: 'Query' }
   & { post: (
     { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'content'>
+    & Pick<Post, 'id' | 'content' | 'updatedAt'>
     & { account: (
       { __typename?: 'Account' }
       & Pick<Account, 'id' | 'name'>
@@ -329,6 +329,7 @@ export const GetPostDocument = gql`
   post(id: $id) {
     id
     content
+    updatedAt
     account {
       id
       name
