@@ -1,13 +1,19 @@
-import { useCreatePostMutation, useGetPostsQuery } from "@/apollo/graphql";
+import { useCreatePostMutation, useGetPostQuery } from "@/apollo/graphql";
 import { DisplayPost } from "@/components/DisplayPost";
 import { PostForm } from "@/components/PostForm";
 import { chakra, HStack, Stack, Text, useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { FormEvent } from "react";
 
-export default function Home() {
+export default function Post() {
+  const router = useRouter();
   const toast = useToast();
 
-  const { data } = useGetPostsQuery();
+  const { data } = useGetPostQuery({
+    variables: {
+      id: Number(router.query.id),
+    },
+  });
 
   const [post] = useCreatePostMutation({
     onCompleted: () => {
@@ -33,6 +39,7 @@ export default function Home() {
       variables: {
         input: {
           content: e.currentTarget.content.value,
+          basePostId: Number(router.query.id),
         },
       },
     });
@@ -47,10 +54,22 @@ export default function Home() {
         boxShadow="0px 0px 100px gray"
         spacing={0}
       >
+        <Stack p={4}>
+          <HStack>
+            <Text color="blackAlpha.700">{data?.post.account.name}</Text>
+            <Text color="blackAlpha.700" fontSize="small">
+              @{data?.post.account.id}
+            </Text>
+          </HStack>
+          <Text whiteSpace="pre-wrap">{data?.post.content}</Text>
+          <Text color="blackAlpha.700" fontSize="small">
+            更新日時: {new Date(data?.post.updatedAt).toLocaleString()}
+          </Text>
+        </Stack>
         <chakra.form onSubmit={onSubmit}>
           <PostForm />
         </chakra.form>
-        {data?.posts.map((post) => (
+        {data?.post.relatedPosts?.map((post) => (
           <DisplayPost post={post} key={post.id} />
         ))}
       </Stack>
