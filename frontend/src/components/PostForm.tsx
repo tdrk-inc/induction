@@ -1,8 +1,8 @@
-import { Button, FormControl, Stack, Textarea, border } from "@chakra-ui/react";
+import { Button, FormControl, Stack, Textarea } from "@chakra-ui/react";
 
 export function PostForm() {
   return (
-    <Stack borderColor="glay" borderWidth="1px" p={2}>
+    <Stack borderColor="glay" borderWidth="1px" p={4}>
       <FormControl>
         <Textarea
           name="content"

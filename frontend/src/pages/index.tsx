@@ -1,10 +1,12 @@
 import { useCreatePostMutation, useGetPostsQuery } from "@/apollo/graphql";
 import { PostForm } from "@/components/PostForm";
-import { chakra, Stack, useToast } from "@chakra-ui/react";
+import { chakra, HStack, Stack, Text, useToast } from "@chakra-ui/react";
 import { FormEvent } from "react";
 
 export default function Home() {
   const toast = useToast();
+
+  const { data } = useGetPostsQuery();
 
   const [post] = useCreatePostMutation({
     onCompleted: () => {
@@ -37,10 +39,32 @@ export default function Home() {
 
   return (
     <Stack alignItems="center" h="100vh">
-      <Stack w="100%" maxW="750px" h="100%" boxShadow="0px 0px 100px gray">
+      <Stack
+        w="100%"
+        maxW="750px"
+        h="100%"
+        boxShadow="0px 0px 100px gray"
+        spacing={0}
+      >
         <chakra.form onSubmit={onSubmit}>
           <PostForm />
         </chakra.form>
+        {data?.posts.map((post) => (
+          <Stack
+            key={post.id}
+            borderBottomWidth="1px"
+            borderBottomColor="glay"
+            p={4}
+          >
+            <HStack>
+              <Text color="blackAlpha.700">{post.account.name}</Text>
+              <Text color="blackAlpha.700" fontSize="small">
+                @{post.account.id}
+              </Text>
+            </HStack>
+            <Text whiteSpace="pre-wrap">{post.content}</Text>
+          </Stack>
+        ))}
       </Stack>
     </Stack>
   );
