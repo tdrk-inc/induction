@@ -1,15 +1,18 @@
 import { useSigninLazyQuery } from "@/apollo/graphql";
 import { SigninForm } from "@/components/SigninForm";
 import { chakra, Box, Flex, useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { setCookie } from "nookies";
 import { FormEvent } from "react";
 
 export default function Signin() {
+  const router = useRouter();
   const toast = useToast();
 
   const [signin] = useSigninLazyQuery({
     onCompleted: (data) => {
-      setCookie(null, "token", data.signin);
+      setCookie(null, "token", data.signin, { path: "/" });
+      router.push("/");
     },
     onError: () => {
       toast({
