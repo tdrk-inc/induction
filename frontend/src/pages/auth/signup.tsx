@@ -12,9 +12,12 @@ export default function Signup() {
     onCompleted: () => {
       router.push("/auth/signin");
     },
-    onError: () => {
+    onError: (error) => {
       toast({
-        title: "アカウントの作成に失敗しました",
+        title:
+          error.message === "Account ID already exists."
+            ? "アカウントIDが既に利用されています"
+            : "アカウントの作成に失敗しました",
         status: "error",
         duration: 2000,
       });
