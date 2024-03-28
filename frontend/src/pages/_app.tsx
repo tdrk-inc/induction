@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { theme } from "@/styles";
 
 export default function App({ Component, pageProps }: AppProps) {
   const apolloClient = new ApolloClient({
@@ -11,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
     </ApolloProvider>
