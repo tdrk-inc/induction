@@ -18,6 +18,8 @@ export class AccountService {
   ) {}
 
   async signup({ password, ...input }: SignupAccountInput): Promise<Account> {
+    const account = await this.repository.findOneBy({ id: input.id });
+    if (account) throw new GraphQLError("Account ID already exists.");
     const hash = createHash("sha256").update(password);
     return this.repository.save({ password: hash.digest("hex"), ...input });
   }

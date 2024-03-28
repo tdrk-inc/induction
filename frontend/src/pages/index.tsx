@@ -1,4 +1,8 @@
-import { useCreatePostMutation, useGetPostsQuery } from "@/apollo/graphql";
+import {
+  GetPostsDocument,
+  useCreatePostMutation,
+  useGetPostsQuery,
+} from "@/apollo/graphql";
 import { DisplayPost } from "@/components/DisplayPost";
 import { PostForm } from "@/components/PostForm";
 import { chakra, HStack, Stack, Text, useToast } from "@chakra-ui/react";
@@ -25,6 +29,7 @@ export default function Home() {
         duration: 2000,
       });
     },
+    refetchQueries: [GetPostsDocument],
   });
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
