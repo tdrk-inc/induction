@@ -105,6 +105,15 @@ export type UpdatePostInput = {
   id: Scalars['Int']['input'];
 };
 
+export type DisplayPostFragment = (
+  { __typename?: 'Post' }
+  & Pick<Post, 'id' | 'content'>
+  & { account: (
+    { __typename?: 'Account' }
+    & Pick<Account, 'id' | 'name'>
+  ) }
+);
+
 export type SignupMutationVariables = Exact<{
   input: SignupAccountInput;
 }>;
@@ -177,7 +186,16 @@ export type GetPostQuery = (
   ) }
 );
 
-
+export const DisplayPostFragmentDoc = gql`
+    fragment DisplayPost on Post {
+  id
+  content
+  account {
+    id
+    name
+  }
+}
+    `;
 export const SignupDocument = gql`
     mutation Signup($input: SignupAccountInput!) {
   signup(input: $input)
