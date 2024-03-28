@@ -24,13 +24,7 @@ export function SignupForm() {
         <FormLabel>パスワード</FormLabel>
         <Input name="password" type="password" />
       </FormControl>
-      <Link
-        href="/auth/signin"
-        fontSize="small"
-        fontWeight="bold"
-        color="gray"
-        ml="auto"
-      >
+      <Link href="/auth/signin" variant="auth" ml="auto">
         ログインはこちら
       </Link>
       <Button variant="submit" type="submit">

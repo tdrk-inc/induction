@@ -20,13 +20,7 @@ export function SigninForm() {
         <FormLabel>パスワード</FormLabel>
         <Input name="password" type="password" />
       </FormControl>
-      <Link
-        href="/auth/signup"
-        fontSize="small"
-        fontWeight="bold"
-        color="gray"
-        ml="auto"
-      >
+      <Link href="/auth/signup" variant="auth" ml="auto">
         アカウント作成はこちら
       </Link>
       <Button variant="submit" type="submit">
