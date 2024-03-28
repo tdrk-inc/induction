@@ -153,6 +153,30 @@ export type GetPostsQuery = (
   )> }
 );
 
+export type GetPostQueryVariables = Exact<{
+  id: Scalars['Int']['input'];
+}>;
+
+
+export type GetPostQuery = (
+  { __typename?: 'Query' }
+  & { post: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'content'>
+    & { account: (
+      { __typename?: 'Account' }
+      & Pick<Account, 'id' | 'name'>
+    ), relatedPosts?: Maybe<Array<(
+      { __typename?: 'Post' }
+      & Pick<Post, 'id' | 'content'>
+      & { account: (
+        { __typename?: 'Account' }
+        & Pick<Account, 'id' | 'name'>
+      ) }
+    )>> }
+  ) }
+);
+
 
 export const SignupDocument = gql`
     mutation Signup($input: SignupAccountInput!) {
@@ -300,3 +324,56 @@ export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsSuspenseQueryHookResult = ReturnType<typeof useGetPostsSuspenseQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+export const GetPostDocument = gql`
+    query GetPost($id: Int!) {
+  post(id: $id) {
+    id
+    content
+    account {
+      id
+      name
+    }
+    relatedPosts {
+      id
+      content
+      account {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostQuery__
+ *
+ * To run a query within a React component, call `useGetPostQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPostQuery(baseOptions: Apollo.QueryHookOptions<GetPostQuery, GetPostQueryVariables> & ({ variables: GetPostQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+      }
+export function useGetPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+        }
+export function useGetPostSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostQuery, GetPostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostQuery, GetPostQueryVariables>(GetPostDocument, options);
+        }
+export type GetPostQueryHookResult = ReturnType<typeof useGetPostQuery>;
+export type GetPostLazyQueryHookResult = ReturnType<typeof useGetPostLazyQuery>;
+export type GetPostSuspenseQueryHookResult = ReturnType<typeof useGetPostSuspenseQuery>;
+export type GetPostQueryResult = Apollo.QueryResult<GetPostQuery, GetPostQueryVariables>;

@@ -20,3 +20,24 @@ export const GET_POSTS = gql`
     }
   }
 `;
+
+export const GET_POST = gql`
+  query GetPost($id: Int!) {
+    post(id: $id) {
+      id
+      content
+      account {
+        id
+        name
+      }
+      relatedPosts {
+        id
+        content
+        account {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
