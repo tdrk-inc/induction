@@ -23,7 +23,7 @@ export class GraphQLPost {
   readonly accountId: string;
 
   @Field(() => GraphQLAccount)
-  readonly account: GraphQLAccount;
+  readonly account?: GraphQLAccount;
 
   @Field(() => [GraphQLPost], { nullable: true })
   readonly relatedPosts?: GraphQLPost[];
@@ -35,7 +35,7 @@ export class GraphQLPost {
     this.createdAt = entity.createdAt;
     this.updatedAt = entity.updatedAt;
     this.accountId = entity.accountId;
-    this.account = new GraphQLAccount(entity.account);
+    this.account = entity.account && new GraphQLAccount(entity.account);
     this.relatedPosts = relatedPosts;
   }
 }
