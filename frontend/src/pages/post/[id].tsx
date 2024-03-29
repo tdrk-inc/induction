@@ -4,6 +4,7 @@ import {
   useGetPostQuery,
 } from "@/apollo/graphql";
 import { DisplayPost } from "@/components/DisplayPost";
+import { Header } from "@/components/Header";
 import { PostForm } from "@/components/PostForm";
 import { chakra, HStack, Stack, Text, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -59,6 +60,7 @@ export default function Post() {
         boxShadow="0px 0px 100px gray"
         spacing={0}
       >
+        <Header title="投稿" />
         <Stack p={4}>
           <HStack>
             <Text color="blackAlpha.700">{data?.post.account.name}</Text>
