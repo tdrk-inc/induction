@@ -5,7 +5,7 @@ import {
 } from "@/apollo/graphql";
 import { DisplayPost } from "@/components/DisplayPost";
 import { PostForm } from "@/components/PostForm";
-import { chakra, HStack, Stack, Text, useToast } from "@chakra-ui/react";
+import { chakra, Stack, useToast } from "@chakra-ui/react";
 import { FormEvent } from "react";
 
 export default function Home() {

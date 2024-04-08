@@ -32,4 +32,8 @@ export class AccountService {
     }
     return sign({ id }, this.configService.get("JWT_SECREAT_KEY"));
   }
+
+  async findOne(id: Account["id"]): Promise<Account> {
+    return this.repository.findOneBy({ id });
+  }
 }
