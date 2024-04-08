@@ -8,6 +8,14 @@ export const CREATE_POST = gql`
   }
 `;
 
+export const UPDATE_POST = gql`
+  mutation UpdatePost($input: UpdatePostInput!) {
+    updatePost(input: $input) {
+      id
+    }
+  }
+`;
+
 export const GET_POSTS = gql`
   query GetPosts {
     posts {

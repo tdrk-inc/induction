@@ -10,3 +10,10 @@ export const DISPLAY_POST = gql`
     }
   }
 `;
+
+export const UPDATE_POST = gql`
+  fragment UpdatePost on Post {
+    id
+    content
+  }
+`;

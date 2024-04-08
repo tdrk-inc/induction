@@ -1,5 +1,9 @@
 import { ButtonProps, defineStyle, defineStyleConfig } from "@chakra-ui/react";
 
+const baseStyle = defineStyle<ButtonProps>({
+  rounded: 0,
+});
+
 const submit = defineStyle<ButtonProps>({
   bgColor: "black",
   color: "white",
@@ -9,6 +13,7 @@ const submit = defineStyle<ButtonProps>({
 });
 
 export const Button = defineStyleConfig({
+  baseStyle,
   variants: {
     submit,
   },

@@ -12,6 +12,7 @@ import { parseCookies } from "nookies";
 import { setContext } from "@apollo/client/link/context";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { AccountProvider } from "@/providers/AccountProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -39,7 +40,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={apolloClient}>
       <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+        <AccountProvider token={token}>
+          <Component {...pageProps} />
+        </AccountProvider>
       </ChakraProvider>
     </ApolloProvider>
   );
