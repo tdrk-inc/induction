@@ -12,6 +12,8 @@ import { MdOutlineEdit } from "react-icons/md";
 import { UpdatePostModal } from "./UpdatePostModal";
 import { useContext } from "react";
 import { AccountContext } from "@/providers/AccountProvider";
+import { FiTrash } from "react-icons/fi";
+import { RemovePostAlert } from "./RemovePostAlert";
 
 type Props = {
   post: DisplayPostFragment;
@@ -24,6 +26,11 @@ export function DisplayPost({ post }: Props) {
     isOpen: isUpdateModalOpen,
     onOpen: onUpdateModalOpen,
     onClose: onUpdateModalClose,
+  } = useDisclosure();
+  const {
+    isOpen: isRemoveAlertOpen,
+    onOpen: onRemoveAlertOpen,
+    onClose: onRemoveAlertClose,
   } = useDisclosure();
 
   return (
@@ -51,6 +58,22 @@ export function DisplayPost({ post }: Props) {
           post={post}
           isOpen={isUpdateModalOpen}
           onClose={onUpdateModalClose}
+        />
+        <chakra.button
+          color={
+            post.account.id === context.accountId
+              ? "red"
+              : "rgba(255, 0, 0, 0.4)"
+          }
+          onClick={onRemoveAlertOpen}
+          disabled={post.account.id !== context.accountId}
+        >
+          <Icon as={FiTrash} boxSize={5} />
+        </chakra.button>
+        <RemovePostAlert
+          id={post.id}
+          isOpen={isRemoveAlertOpen}
+          onClose={onRemoveAlertClose}
         />
       </HStack>
     </Stack>

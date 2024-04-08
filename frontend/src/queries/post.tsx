@@ -16,6 +16,14 @@ export const UPDATE_POST = gql`
   }
 `;
 
+export const REMOVE_POST = gql`
+  mutation RemovePost($id: Int!) {
+    removePost(id: $id) {
+      id
+    }
+  }
+`;
+
 export const GET_POSTS = gql`
   query GetPosts {
     posts {
